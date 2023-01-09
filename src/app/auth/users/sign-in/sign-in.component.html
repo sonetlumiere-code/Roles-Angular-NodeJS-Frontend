@@ -1,0 +1,14 @@
+<form #signInForm="ngForm" (ngSubmit)="signInForm.valid && onSubmit(signInForm)">
+  <input type="text" name="email" #email="ngModel" [(ngModel)]="model.email" placeholder="Email o Usuario" required>
+  <input type="password" name="password" #password="ngModel" [(ngModel)]="model.password" placeholder="Contraseña" minlength="4" required>
+  <div>                   
+    <div>
+      <button type="submit" [disabled]="!signInForm.form.valid">Iniciar sesión</button>
+    </div>
+  </div>
+</form>
+
+<!-- Error message -->
+<div *ngIf="serverErrorMessages">
+  <p>{{serverErrorMessages}}</p>
+</div>
