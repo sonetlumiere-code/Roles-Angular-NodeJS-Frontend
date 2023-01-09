@@ -19,15 +19,15 @@ export class SignUpComponent {
   ) { }
 
   onSubmit(form: NgForm) {
-    this.userService.postUser(form.value).subscribe(
-      (res) => {
+    this.userService.postUser(form.value).subscribe({
+      next: (res) => {
         console.log(res);
         this.showSucessMessage = true;
         setTimeout(() => this.showSucessMessage = false, 4000);
         form.resetForm();
         this.resetForm(form);
       },
-      (err) => {
+      error: (err) => {
         if (err.status === 422) {
           this.serverErrorMessages = err.error.join('<br/>');
           setTimeout(() => this.resetForm(form), 4000);
@@ -36,7 +36,7 @@ export class SignUpComponent {
           this.serverErrorMessages = 'Algo salió mal. Intente más tarde.';
         }
       }
-    );
+    });
   }
 
   resetForm(form: NgForm) {

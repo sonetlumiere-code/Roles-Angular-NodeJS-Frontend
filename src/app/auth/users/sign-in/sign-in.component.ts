@@ -28,9 +28,9 @@ export class SignInComponent implements OnInit {
     console.log('sign in');
   }
 
-  onSubmit(form: NgForm) {
-    this.userService.login(form.value).subscribe(
-      res => {
+  onSubmit(form: NgForm): void {
+    this.userService.login(form.value).subscribe({
+      next: (res) => {
         this.userService.setToken(res['token']);
         this.roles = this.userService.getRoles();
         if (this.roles && (this.roles.includes(Role.Admin) || this.roles.includes(Role.Moderator))) {
@@ -39,12 +39,12 @@ export class SignInComponent implements OnInit {
           this.router.navigateByUrl('/'); //go to main
         }
       },
-      err => {
+      error: (err) => {
         this.serverErrorMessages = err.error.message;
         form.resetForm();
         setTimeout(() => this.serverErrorMessages = '', 3000);
       }
-    );
+    });
   }
 
 }

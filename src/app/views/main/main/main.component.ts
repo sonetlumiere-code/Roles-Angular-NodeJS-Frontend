@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfile } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
-import { DataMainService } from 'src/app/services/data-main.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-main',
@@ -13,7 +13,7 @@ export class MainComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private _dataMainService: DataMainService,
+    private _dataService: DataService,
   ) {}
 
   ngOnInit() {
@@ -23,16 +23,16 @@ export class MainComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUserProfile().subscribe(
-      (res: any) => {
+    this.userService.getUserProfile().subscribe({
+      next: (res: any) => {
         this.userProfile = res['user'];
         console.log(this.userProfile);
-        this._dataMainService.sendUserDetails(this.userProfile);
+        this._dataService.sendUserDetails(this.userProfile);
       },
-      (err: any) => {
+      error: (err: any) => {
         console.log(err);
       }
-    );
+    });
   }
 
 }

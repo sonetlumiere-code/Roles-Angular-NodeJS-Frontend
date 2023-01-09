@@ -5,7 +5,7 @@ import { UserProfile } from '../models/user.model';
 @Injectable({
   providedIn: 'root'
 })
-export class DataMainService {
+export class DataService {
 
   private userProfile = new BehaviorSubject<any>('');
   currentUserDetails = this.userProfile.asObservable();

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserProfile } from '../../../models/user.model';
 import { UserService } from '../../../services/user.service';
-import { DataMainService } from 'src/app/services/data-main.service';
+import { DataService } from 'src/app/services/data.service';
 
 @Component({
   selector: 'app-admin',
@@ -13,7 +13,7 @@ export class AdminComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private _dataMainService: DataMainService,
+    private _dataService: DataService,
   ) {}
 
   ngOnInit() {
@@ -21,15 +21,15 @@ export class AdminComponent implements OnInit {
   }
 
   getUser() {
-    this.userService.getUserProfile().subscribe(
-      (res: any) => {
+    this.userService.getUserProfile().subscribe({
+      next: (res) => {
         console.log(res);
         this.userProfile = res['user'];
-        this._dataMainService.sendUserDetails(this.userProfile);
+        this._dataService.sendUserDetails(this.userProfile);
       },
-      (err: any) => {
+      error: (err) => {
         console.log(err);
       }
-    );
+    });
   }
 }
