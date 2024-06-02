@@ -31,12 +31,16 @@
             "style": "kebab-case"
           }
         ],
-        "@typescript-eslint/type-annotation-spacing": ["error", { "after": true }],
+        "@typescript-eslint/type-annotation-spacing": ["error", { 
+          "after": true 
+        }],
+        "@typescript-eslint/no-explicit-any": "off",
         "semi": ["error", "always"],
         "quotes": ["error", "single"],
         "indent": ["error", 2],
         "no-multi-spaces": "error",
         "no-trailing-spaces": "error",
+        "space-before-blocks": "error",
         "no-multiple-empty-lines": ["error", {
           "max": 1,
           "maxEOF": 0 

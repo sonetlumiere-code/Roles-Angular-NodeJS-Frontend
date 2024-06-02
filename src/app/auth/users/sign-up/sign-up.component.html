@@ -1,0 +1,39 @@
+<form #signUpForm="ngForm" (ngSubmit)="signUpForm.valid && onSubmit(signUpForm)">
+
+  <input type="text" #username="ngModel" [(ngModel)]="userService.initialUser.username" name="username" placeholder="Usuario"
+  minlength="4" maxlength="16" required [pattern]="usernameRegex">
+  <ng-container *ngIf="signUpForm.submitted && username.errors">
+    <label *ngIf="email.errors?.['required']">Este campo es requerido</label>
+    <label *ngIf="email.errors?.['pattern']">Nombre de usuario no válido</label>
+  </ng-container>
+
+  <input type="text" #email="ngModel" [(ngModel)]="userService.initialUser.email" name="email" placeholder="Email"
+  required [pattern]="emailRegex">
+  <ng-container *ngIf="signUpForm.submitted && email.errors">
+    <label *ngIf="email.errors?.['required']">Este campo es requerido</label>
+    <label *ngIf="email.errors?.['pattern']">Email no válido</label>
+  </ng-container>
+
+  <input type="password" name="password" #password="ngModel" [(ngModel)]="userService.initialUser.password" placeholder="Contraseña" minlength="4" required> 
+  <ng-container *ngIf="signUpForm.submitted && password.errors">
+    <label *ngIf="password.errors?.['required']">Este campo es requerido</label>
+    <label *ngIf="password.errors?.['minlength']">Ingrese al menos 4 caracteres</label>
+  </ng-container>
+
+  <ng-container *ngIf="signUpForm.form.dirty && username.errors">
+    <p>Tu nombre de usuario debe contener mínimo 4 caracteres, únicamente letras, números y/o guión intermedio</p>
+  </ng-container>
+
+  <div>                   
+    <button type="submit" [disabled]="!signUpForm.form.valid === true">Crear cuenta</button>
+  </div>
+
+</form>
+
+<div *ngIf="showSucessMessage">
+  Usuario creado con éxito
+</div>
+
+<div *ngIf="serverErrorMessages">
+  {{serverErrorMessages}}
+</div>
